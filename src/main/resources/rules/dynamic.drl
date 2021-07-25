@@ -26,6 +26,6 @@ rule "discount_rule_4"
 
         TestService t = context.getBean(TestService.class);
         String res = t.test("123456");
-        r.setData("hello world");
+        r.setData("hello world: " + param.getName());
         log.info("test spring context: {}", res);
 end
