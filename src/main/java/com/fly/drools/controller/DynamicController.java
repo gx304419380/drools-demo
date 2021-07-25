@@ -1,6 +1,5 @@
 package com.fly.drools.controller;
 
-import com.fly.drools.entity.RuleParam;
 import com.fly.drools.entity.RuleResult;
 import com.fly.drools.service.RuleService;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.kie.api.definition.KiePackage;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieSession;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;

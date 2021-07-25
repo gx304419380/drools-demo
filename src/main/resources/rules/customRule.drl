@@ -6,11 +6,11 @@ import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationContext
 import java.util.List
 import com.fly.drools.test.TestService
-import com.fly.drools.entity.RuleParam
+import com.fly.drools.test.TestParam
 
 rule "discount_rule_4"
     when
-        p: RuleParam()
+        p: TestParam()
         r: RuleResult()
         log: Logger()
         context: ApplicationContext()

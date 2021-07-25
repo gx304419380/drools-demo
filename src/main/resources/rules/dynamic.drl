@@ -4,8 +4,6 @@ import com.fly.drools.entity.RuleResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationContext
-import java.util.List
-import com.fly.drools.entity.RuleParam
 import com.fly.drools.test.TestService
 import java.util.Map
 
