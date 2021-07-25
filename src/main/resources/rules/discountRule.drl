@@ -1,0 +1,34 @@
+package rules
+
+import com.fly.drools.entity.Param
+import com.fly.drools.entity.RuleResult
+import com.fly.drools.service.TestService
+
+
+rule "discount_rule_1"
+    when
+        order: Param(age < 12)
+        r: RuleResult()
+    then
+        r.setData(50);
+        System.out.println("儿童 result = " + r);
+end
+
+rule "discount_rule_2"
+    when
+        order: Param(age < 30 && age >= 12)
+        r: RuleResult()
+    then
+        r.setData(100);
+        System.out.println("青年 result = " + r);
+end
+
+rule "discount_rule_3"
+    when
+        order: Param(age >= 30)
+        r: RuleResult()
+    then
+        r.setData(150);
+        System.out.println("中老年 result = " + r);
+end
+

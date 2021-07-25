@@ -1,0 +1,18 @@
+package rules
+
+import com.fly.drools.entity.Param
+import com.fly.drools.entity.RuleResult
+import com.fly.drools.service.TestService
+
+rule "discount_rule_4"
+    when
+        p: Param()
+        r: RuleResult()
+        testService: TestService()
+    then
+        System.out.println("博士 result = " + r);
+        if (testService.getList().contains(p.getName())) {
+            testService.insertParam(p);
+            r.setData(200);
+        }
+end
