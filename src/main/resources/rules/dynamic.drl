@@ -5,28 +5,29 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationContext
 import java.util.List
-import com.fly.drools.test.TestService
 import com.fly.drools.entity.RuleParam
+import com.fly.drools.test.TestService
+import java.util.Map
+
+declare Param
+    age: int
+    name: String
+    degree: String
+end
 
 rule "discount_rule_4"
     when
-        p: RuleParam()
+        p: Map()
+        param: Param()
         r: RuleResult()
         log: Logger()
         context: ApplicationContext()
-        testService: TestService()
     then
-        log.info("drools execute...");
-
-        List<String> list = testService.getList();
-
-        if (list.contains(p.getName())) {
-            testService.insertParam(p);
-            r.setData(200);
-        }
+        log.info("drools execute, map={}", p);
+        log.info("drools execute, param={}", param);
 
         TestService t = context.getBean(TestService.class);
         String res = t.test("123456");
-        r.setData(100);
+        r.setData("hello world");
         log.info("test spring context: {}", res);
 end

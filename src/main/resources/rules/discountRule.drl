@@ -1,13 +1,13 @@
 package rules
 
-import com.fly.drools.entity.Param
+import com.fly.drools.test.TestParam
 import com.fly.drools.entity.RuleResult
-import com.fly.drools.service.TestService
+import com.fly.drools.test.TestService
 
 
 rule "discount_rule_1"
     when
-        order: Param(age < 12)
+        order: TestParam(age < 12)
         r: RuleResult()
     then
         r.setData(50);
@@ -16,7 +16,7 @@ end
 
 rule "discount_rule_2"
     when
-        order: Param(age < 30 && age >= 12)
+        order: TestParam(age < 30 && age >= 12)
         r: RuleResult()
     then
         r.setData(100);
@@ -25,7 +25,7 @@ end
 
 rule "discount_rule_3"
     when
-        order: Param(age >= 30)
+        order: TestParam(age >= 30)
         r: RuleResult()
     then
         r.setData(150);

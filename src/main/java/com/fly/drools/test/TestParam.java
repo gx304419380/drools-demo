@@ -1,11 +1,11 @@
-package com.fly.drools.entity;
+package com.fly.drools.test;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class Param {
+public class TestParam {
 
     private String name;
 

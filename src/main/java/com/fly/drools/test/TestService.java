@@ -1,6 +1,6 @@
-package com.fly.drools.service;
+package com.fly.drools.test;
 
-import com.fly.drools.entity.Param;
+import com.fly.drools.entity.RuleParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,12 @@ public class TestService {
         return Arrays.asList("aaa", "bbb", "ccc");
     }
 
-    public void insertParam(Param param) {
+    public void insertParam(RuleParam param) {
         log.warn("insert param  {}", param);
+    }
+
+    public String test(String value) {
+        return "this string from test service " + value;
     }
 
 }

@@ -1,22 +1,12 @@
 package com.fly.drools.controller;
 
-import com.fly.drools.entity.Param;
+import com.fly.drools.entity.Rule;
 import com.fly.drools.entity.RuleResult;
-import com.fly.drools.service.TestService;
-import com.fly.drools.util.RuleUtils;
-import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.Parameter;
+import com.fly.drools.service.RuleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.drools.core.base.RuleNameEqualsAgendaFilter;
-import org.kie.api.KieServices;
-import org.kie.api.internal.utils.KieService;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.PostConstruct;
-import java.util.Collection;
 
 @RestController
 @RequestMapping("rule")
@@ -24,80 +14,79 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class RuleController {
 
-    private KieContainer kieContainer;
+    private final RuleService ruleService;
 
-    private final RuleUtils ruleUtils;
-
-    private final TestService testService;
 
     /**
-     * 初始化drools
+     * 新增或修改规则
+     * @param rule  规则
+     * @return      result
      */
-    @PostConstruct
-    public void init() {
-        kieContainer = KieServices.Factory.get().getKieClasspathContainer();
+    @PostMapping
+    public RuleResult saveRule(@RequestBody Rule rule) {
+        log.info("save rule: {}", rule);
+
+        ruleService.save(rule);
+
+        log.info("save rule success id: {}", rule.getId());
+        return RuleResult.success();
     }
 
 
     /**
-     * 读取静态规则文件
+     * 新增或修改规则  纯文本
      *
-     * @param param 参数
+     * @param ruleText  规则
+     * @return          result
      */
-    @GetMapping("static")
-    public void testRule(Param param) {
-        RuleResult result = new RuleResult();
-        KieSession kieSession = kieContainer.newKieSession();
-        kieSession.insert(testService);
-        kieSession.insert(param);
-        kieSession.insert(result);
-        kieSession.fireAllRules();
-        kieSession.dispose();
+    @PostMapping("text")
+    public RuleResult saveRulePlainText(@RequestBody String ruleText) {
+        log.info("save ruleText: {}", ruleText);
 
-        log.info("result = {}", result);
+        Rule rule = new Rule();
+        rule.setRuleText(ruleText);
+        ruleService.save(rule);
+
+        log.info("save ruleText success id: {}", rule.getId());
+        return RuleResult.success();
     }
 
 
 
     /**
-     * 动态获取规则，用户传规则到后台，然后根据字符串生成session
+     * 删除规则
      *
-     * @param param     param
-     * @param rule      规则
+     * @param id id
+     * @return  规则
      */
-    @PostMapping("dynamic")
-    public void testRuleByUtils(Param param,
-                                @RequestBody @ApiParam(example = RULE) String rule) {
-        RuleResult result = new RuleResult();
-        KieSession kieSession = ruleUtils.getSession(rule);
-        kieSession.insert(testService);
-        kieSession.insert(param);
-        kieSession.insert(result);
-        kieSession.fireAllRules();
-        Collection<?> objects = kieSession.getObjects();
-        log.info("work memory: {}", objects);
-        kieSession.dispose();
+    @DeleteMapping
+    public RuleResult deleteById(@RequestParam Long id) {
+        log.info("delete rule by id: {}", id);
+        Rule delete = ruleService.delete(id);
 
-        log.info("result = {}", result);
+        log.info("delete rule finish: {}", delete);
+        return RuleResult.success();
     }
 
-    private static final String RULE =
-            "package rules\n" +
-            "import com.fly.drools.entity.Param\n" +
-            "import com.fly.drools.entity.RuleResult\n" +
-            "import com.fly.drools.service.TestService\n" +
-            "rule \"discount_rule_4\"\n" +
-            "    when\n" +
-            "        p: Param()\n" +
-            "        r: RuleResult()\n" +
-            "        testService: TestService()\n" +
-            "    then\n" +
-            "        System.out.println(\"博士 result = \" + r);\n" +
-            "        if (testService.getList().contains(p.getName())) {\n" +
-            "            testService.insertParam(p);\n" +
-            "\n" +
-            "        } else {\n" +
-            "            throw new RuntimeException(\"name error\");\n" +
-            "        }\n" +
-            "end";
+
+    /**
+     * 分页查询
+     * @param pageNo    pageNo
+     * @param pageSize  pageSize
+     * @return          page
+     */
+    @GetMapping
+    public RuleResult page(@RequestParam Integer pageNo,
+                           @RequestParam Integer pageSize) {
+        Page<Rule> page = ruleService.page(pageNo, pageSize);
+        return RuleResult.success(page);
+    }
+
+
+    @GetMapping("{id}")
+    public RuleResult getById(@PathVariable Long id) {
+        Rule rule = ruleService.getById(id);
+        return RuleResult.success(rule);
+    }
+
 }
