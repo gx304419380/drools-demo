@@ -7,6 +7,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationContext
 import com.fly.drools.service.UserService
+import java.util.List
 
 rule "discount_rule_4"
     when
@@ -17,7 +18,10 @@ rule "discount_rule_4"
         testService: TestService()
     then
         log.info("drools execute...");
-        if (testService.getList().contains(p.getName())) {
+
+        List<String> list = testService.getList();
+
+        if (list.contains(p.getName())) {
             testService.insertParam(p);
             r.setData(200);
         }

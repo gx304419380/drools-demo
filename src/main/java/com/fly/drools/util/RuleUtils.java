@@ -50,6 +50,24 @@ public class RuleUtils {
 
 
     /**
+     * 卸载某规则
+     *
+     * @param rule rule
+     */
+    public void uninstall(String rule) {
+        KieContainer container = CACHE.get(rule);
+
+        if (container == null) {
+            return;
+        }
+
+        container.dispose();
+        CACHE.remove(rule);
+    }
+
+
+
+    /**
      * 从缓存获取container
      *
      * @param rule  rule
