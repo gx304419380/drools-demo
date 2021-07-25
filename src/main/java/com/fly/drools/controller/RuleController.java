@@ -5,6 +5,7 @@ import com.fly.drools.entity.RuleResult;
 import com.fly.drools.service.TestService;
 import com.fly.drools.util.RuleUtils;
 import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.drools.core.base.RuleNameEqualsAgendaFilter;
@@ -25,21 +26,25 @@ public class RuleController {
 
     private KieContainer kieContainer;
 
+    private final RuleUtils ruleUtils;
+
     private final TestService testService;
 
+    /**
+     * 初始化drools
+     */
     @PostConstruct
     public void init() {
         kieContainer = KieServices.Factory.get().getKieClasspathContainer();
     }
 
 
-    @GetMapping
-    public String hello() {
-        return "hello";
-    }
-
-
-    @GetMapping("test")
+    /**
+     * 读取静态规则文件
+     *
+     * @param param 参数
+     */
+    @GetMapping("static")
     public void testRule(Param param) {
         RuleResult result = new RuleResult();
         KieSession kieSession = kieContainer.newKieSession();
@@ -52,11 +57,19 @@ public class RuleController {
         log.info("result = {}", result);
     }
 
-    @PostMapping("utils")
+
+
+    /**
+     * 动态获取规则，用户传规则到后台，然后根据字符串生成session
+     *
+     * @param param     param
+     * @param rule      规则
+     */
+    @PostMapping("dynamic")
     public void testRuleByUtils(Param param,
-                                @RequestBody @ApiParam(defaultValue = RULE) String rule) {
+                                @RequestBody @ApiParam(example = RULE) String rule) {
         RuleResult result = new RuleResult();
-        KieSession kieSession = RuleUtils.getSession(rule);
+        KieSession kieSession = ruleUtils.getSession(rule);
         kieSession.insert(testService);
         kieSession.insert(param);
         kieSession.insert(result);

@@ -3,16 +3,26 @@ package rules
 import com.fly.drools.entity.Param
 import com.fly.drools.entity.RuleResult
 import com.fly.drools.service.TestService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.context.ApplicationContext
+import com.fly.drools.service.UserService
 
 rule "discount_rule_4"
     when
         p: Param()
         r: RuleResult()
+        log: Logger()
+        context: ApplicationContext()
         testService: TestService()
     then
-        System.out.println("博士 result = " + r);
+        log.info("drools execute...");
         if (testService.getList().contains(p.getName())) {
             testService.insertParam(p);
             r.setData(200);
         }
+
+        UserService userService = context.getBean(UserService.class);
+        String user = userService.getUserById("123456");
+        log.info("test spring context: {}", user);
 end
