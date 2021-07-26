@@ -129,6 +129,7 @@ public class RuleService {
      *
      * @param id id
      */
+    @Transactional(rollbackFor = Exception.class)
     public Rule delete(Long id) {
 
         Optional<Rule> rule = ruleDao.findById(id);
