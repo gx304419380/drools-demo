@@ -5,7 +5,7 @@ create table if not exists rule_demo.tb_rule
 	rule_text text not null,
 	create_time datetime null,
 	update_time datetime null,
-	package_name varchar(255) null
+	name varchar(32) null
 )
 comment '规则';
 

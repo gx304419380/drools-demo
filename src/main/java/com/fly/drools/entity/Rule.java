@@ -16,7 +16,7 @@ public class Rule {
     @Id
     private Long id;
 
-    private String packageName;
+    private String name;
 
     private String ruleText;
 

@@ -1,7 +1,7 @@
 #基于Drools实现动态接口
 
 ##1. 核心原理
-通过字符串获取一个规则容器，进而获取session执行规则;
+通过字符串获取一个规则容器，进而获取session执行规则;  
 我们会在session中插入必要的工具类，例如spring的容器，jdbcTemplate等
 ```java
 KieContainer container = new KieHelper().addContent(rule, DRL).getKieContainer();
