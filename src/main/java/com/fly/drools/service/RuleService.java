@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -43,6 +44,7 @@ public class RuleService {
 
     private final ApplicationContext context;
     private final RuleDao ruleDao;
+    private final JdbcTemplate jdbcTemplate;
 
 
     /**
@@ -140,6 +142,7 @@ public class RuleService {
         //设置日志和spring容器
         session.insert(log);
         session.insert(context);
+        session.insert(jdbcTemplate);
 
         return session;
     }
@@ -159,6 +162,7 @@ public class RuleService {
         //设置日志和spring容器
         session.insert(log);
         session.insert(context);
+        session.insert(jdbcTemplate);
 
         return session;
     }

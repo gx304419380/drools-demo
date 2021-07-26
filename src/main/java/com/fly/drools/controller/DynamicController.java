@@ -1,5 +1,6 @@
 package com.fly.drools.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fly.drools.entity.RuleResult;
 import com.fly.drools.service.RuleService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class DynamicController {
 
     private final RuleService ruleService;
+
+    private final ObjectMapper objectMapper;
 
     @PostMapping("{ruleId}")
     public RuleResult handle(@PathVariable Long ruleId, @RequestBody Map<String, Object> param)
@@ -50,8 +53,7 @@ public class DynamicController {
         return result;
     }
 
-    private void generateDynamicParam(KieSession session, Map<String, Object> param)
-            throws IllegalAccessException, InstantiationException {
+    private void generateDynamicParam(KieSession session, Map<String, Object> param) {
 
         Collection<KiePackage> packages = session.getKieBase().getKiePackages();
         KiePackage kiePackage = packages.stream().filter(p -> !p.getRules().isEmpty()).findFirst().orElse(null);
@@ -62,9 +64,10 @@ public class DynamicController {
 
         Collection<FactType> factTypes = kiePackage.getFactTypes();
         for (FactType factType : factTypes) {
-            Object instance = factType.newInstance();
-            factType.setFromMap(instance, param);
-            session.insert(instance);
+//            Object instance = factType.newInstance();
+//            factType.setFromMap(instance, param);
+            Object value = objectMapper.convertValue(param, factType.getFactClass());
+            session.insert(value);
         }
 
     }

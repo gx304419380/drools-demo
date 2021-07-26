@@ -1,3 +1,4 @@
+create database if not exists rule_demo;
 create table rule_demo.tb_rule
 (
 	id bigint auto_increment
