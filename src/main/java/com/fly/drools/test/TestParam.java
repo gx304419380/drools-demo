@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * @author guoxiang
+ */
 @Data
 public class TestParam {
 

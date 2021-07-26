@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import java.util.Collection;
 
+/**
+ * @author guoxiang
+ */
 @RestController
 @RequestMapping("test")
 @Slf4j

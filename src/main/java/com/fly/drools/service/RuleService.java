@@ -16,7 +16,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.ResourceUtils;
 
+import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +50,18 @@ public class RuleService {
     private final ApplicationContext context;
     private final RuleDao ruleDao;
     private final JdbcTemplate jdbcTemplate;
+
+
+    /**
+     * 初始化数据库
+     */
+    @PostConstruct
+    public void init() throws IOException {
+        File sqlFile = ResourceUtils.getFile("classpath:sql/init.sql");
+        String sql = String.join("\n", Files.readAllLines(sqlFile.toPath()));
+
+        jdbcTemplate.execute(sql);
+    }
 
 
     /**

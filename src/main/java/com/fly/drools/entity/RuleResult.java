@@ -3,6 +3,9 @@ package com.fly.drools.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * @author guoxiang
+ */
 @Data
 @Accessors(chain = true)
 public class RuleResult {

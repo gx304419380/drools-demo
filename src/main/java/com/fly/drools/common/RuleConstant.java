@@ -2,6 +2,9 @@ package com.fly.drools.common;
 
 import lombok.experimental.UtilityClass;
 
+/**
+ * @author guoxiang
+ */
 @UtilityClass
 public class RuleConstant {
     public static final String PACKAGE_REGEX = "";

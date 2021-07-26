@@ -15,6 +15,8 @@ import java.util.Map;
 
 /**
  * 动态controller
+ *
+ * @author guoxiang
  */
 @RestController
 @RequestMapping("dynamic")
@@ -27,8 +29,7 @@ public class DynamicController {
     private final ObjectMapper objectMapper;
 
     @PostMapping("{ruleId}")
-    public RuleResult handle(@PathVariable Long ruleId, @RequestBody Map<String, Object> param)
-            throws IllegalAccessException, InstantiationException {
+    public RuleResult handle(@PathVariable Long ruleId, @RequestBody Map<String, Object> param) {
 
         log.debug("- handle dynamic rule: {}, param: {}", ruleId, param);
 
@@ -53,6 +54,15 @@ public class DynamicController {
         return result;
     }
 
+    /**
+     * 这里使用jackson进行赋值，支持更多数据类型
+     * 传统赋值方式如下，只支持基本数据类型：
+     * Object o = factType.newInstance();
+     * factType.setFromMap(o, param);
+     *
+     * @param session   session
+     * @param param param
+     */
     private void generateDynamicParam(KieSession session, Map<String, Object> param) {
 
         Collection<KiePackage> packages = session.getKieBase().getKiePackages();
@@ -64,8 +74,6 @@ public class DynamicController {
 
         Collection<FactType> factTypes = kiePackage.getFactTypes();
         for (FactType factType : factTypes) {
-//            Object instance = factType.newInstance();
-//            factType.setFromMap(instance, param);
             Object value = objectMapper.convertValue(param, factType.getFactClass());
             session.insert(value);
         }

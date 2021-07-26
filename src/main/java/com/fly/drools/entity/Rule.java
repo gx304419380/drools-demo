@@ -6,6 +6,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author guoxiang
+ */
 @Data
 @Table("tb_rule")
 public class Rule {

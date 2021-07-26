@@ -10,12 +10,16 @@ import org.kie.api.builder.Results;
 import org.kie.api.io.ResourceType;
 import org.kie.internal.utils.KieHelper;
 import org.springframework.data.domain.Page;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 规则controller
+ *
+ * @author guoxiang
+ */
 @RestController
 @RequestMapping("rule")
 @Slf4j
