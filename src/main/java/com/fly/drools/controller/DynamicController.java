@@ -54,6 +54,7 @@ public class DynamicController {
         return result;
     }
 
+
     /**
      * 这里使用jackson进行赋值，支持更多数据类型
      * 传统赋值方式如下，只支持基本数据类型：
