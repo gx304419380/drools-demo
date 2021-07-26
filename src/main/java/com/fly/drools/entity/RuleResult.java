@@ -29,4 +29,8 @@ public class RuleResult {
     public static RuleResult success(Object data) {
         return new RuleResult().setCode(0).setData(data);
     }
+
+    public static RuleResult fail(String message) {
+        return new RuleResult().setCode(1).setMessage(message);
+    }
 }
