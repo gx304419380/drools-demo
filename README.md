@@ -12,7 +12,7 @@ session.insert(context);
 session.insert(jdbcTemplate);
 ```
 
-其中规则类似如下：
+其中规则类似如下，在rules文件夹下的dynamic.drl中：
 ```drools
 package rules
 
@@ -53,4 +53,13 @@ rule "discount_rule_4"
         log.info("rule list = {}", list);
 end
 ```
+
+##2.使用方法
+
+启动项目后，可以看到RuleController接口，用户新增修改删除规则；
+调用保存接口新增一个规则，返回该规则的ID  
+![img.png](img.png)
+然后可以在DynamicController中对该规则进行调用；
+![img_1.png](img_1.png)
+
 
