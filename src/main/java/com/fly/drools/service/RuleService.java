@@ -217,7 +217,8 @@ public class RuleService {
         }
 
         synchronized (CACHE_ID) {
-            return CACHE_ID.computeIfAbsent(id, k -> new KieHelper().addContent(getRuleById(k), DRL).getKieContainer());
+            String rule = getRuleById(id);
+            return CACHE_ID.computeIfAbsent(id, k -> new KieHelper().addContent(rule, DRL).getKieContainer());
         }
     }
 
