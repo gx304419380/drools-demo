@@ -1,6 +1,7 @@
 package com.fly.drools.service;
 
 import com.fly.drools.dao.RuleDao;
+import com.fly.drools.dto.RuleBriefDto;
 import com.fly.drools.entity.Rule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ResourceUtils;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -32,6 +32,7 @@ import static com.fly.drools.common.RuleConstant.CREATE_TIME;
 import static com.fly.drools.common.RuleErrorMessage.RULE_NULL_ERROR;
 import static com.fly.drools.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
 import static org.kie.api.io.ResourceType.DRL;
+import static org.springframework.util.StringUtils.hasText;
 
 /**
  * 规则引擎动态获取session工具类
@@ -100,17 +101,14 @@ public class RuleService {
      * @param name      name
      * @return          page
      */
-    public Page<Rule> page(Integer pageNo, Integer pageSize, String name) {
+    public Page<RuleBriefDto> page(Integer pageNo, Integer pageSize, String name) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, CREATE_TIME);
 
         PageRequest pageRequest = PageRequest.of(pageNo - 1, pageSize, sort);
-        if (StringUtils.hasText(name)) {
-            name = "%" + name + "%";
-            return ruleDao.findByNameLike(name, pageRequest);
-        }
+        name = hasText(name) ? "%" + name + "%" : "%";
 
-        return ruleDao.findAll(pageRequest);
+        return ruleDao.findByNameLike(name, pageRequest);
     }
 
 
