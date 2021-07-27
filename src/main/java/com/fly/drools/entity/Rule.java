@@ -18,6 +18,8 @@ public class Rule {
 
     private String name;
 
+    private String description;
+
     private String ruleText;
 
     private LocalDateTime createTime;

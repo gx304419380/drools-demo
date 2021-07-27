@@ -3,6 +3,8 @@ package com.fly.drools.controller;
 import com.fly.drools.entity.Rule;
 import com.fly.drools.entity.RuleResult;
 import com.fly.drools.service.RuleService;
+import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kie.api.builder.Message;
@@ -108,8 +110,9 @@ public class RuleController {
      */
     @GetMapping
     public RuleResult page(@RequestParam Integer pageNo,
-                           @RequestParam Integer pageSize) {
-        Page<Rule> page = ruleService.page(pageNo, pageSize);
+                           @RequestParam Integer pageSize,
+                           @RequestParam(required = false) String name) {
+        Page<Rule> page = ruleService.page(pageNo, pageSize, name);
         return RuleResult.success(page);
     }
 

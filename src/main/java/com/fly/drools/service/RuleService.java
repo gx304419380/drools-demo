@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ResourceUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -96,13 +97,20 @@ public class RuleService {
      * 分页查询
      * @param pageNo    页码
      * @param pageSize  大小
+     * @param name      name
      * @return          page
      */
-    public Page<Rule> page(Integer pageNo, Integer pageSize) {
+    public Page<Rule> page(Integer pageNo, Integer pageSize, String name) {
 
         Sort sort = Sort.by(Sort.Direction.DESC, CREATE_TIME);
 
-        return ruleDao.findAll(PageRequest.of(pageNo - 1, pageSize, sort));
+        PageRequest pageRequest = PageRequest.of(pageNo - 1, pageSize, sort);
+        if (StringUtils.hasText(name)) {
+            name = "%" + name + "%";
+            return ruleDao.findByNameLike(name, pageRequest);
+        }
+
+        return ruleDao.findAll(pageRequest);
     }
 
 
