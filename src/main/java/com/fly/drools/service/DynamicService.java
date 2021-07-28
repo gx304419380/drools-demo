@@ -31,7 +31,7 @@ public class DynamicService {
         //接收参数，并转为动态参数
         generateDynamicParam(session, param);
 
-        RuleResult result = new RuleResult();
+        RuleResult result = new RuleResult().setCode(0);
 
         //执行规则引擎
         try {
