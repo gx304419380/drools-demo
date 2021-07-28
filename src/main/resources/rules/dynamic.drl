@@ -35,6 +35,6 @@ rule "discount_rule_4"
         String res = t.test("123456");
         r.setData("hello world: " + param.getName());
         log.info("test spring context: {}", res);
-        List<Rule> list = jdbc.query("select * from tb_rule", new BeanPropertyRowMapper<>(Rule.class));
+        List<Rule> list = jdbc.query("select * from TB_RULE", new BeanPropertyRowMapper<>(Rule.class));
         log.info("rule list = {}", list);
 end
