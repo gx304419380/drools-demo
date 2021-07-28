@@ -7,5 +7,4 @@ create table if not exists tb_rule
 	create_time datetime null,
 	update_time datetime null,
 	description varchar(200) null
-)
-comment '规则';
+);
