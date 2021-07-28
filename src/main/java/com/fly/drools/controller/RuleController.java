@@ -4,6 +4,7 @@ import com.fly.drools.dto.RuleBriefDto;
 import com.fly.drools.dto.RuleDetailDto;
 import com.fly.drools.entity.Rule;
 import com.fly.drools.entity.RuleResult;
+import com.fly.drools.service.DynamicService;
 import com.fly.drools.service.RuleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.fly.drools.common.RuleErrorMessage.RULE_SYNTAX_ERROR;
@@ -33,6 +35,43 @@ import static com.fly.drools.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
 public class RuleController {
 
     private final RuleService ruleService;
+    private final DynamicService dynamicService;
+
+    /**
+     * 动态接口 POST
+     *
+     * @param ruleId    ruleId
+     * @param param param
+     * @return      result
+     */
+    @PostMapping("{ruleId}")
+    public RuleResult handlePost(@PathVariable Long ruleId, @RequestBody Map<String, Object> param) {
+
+        log.debug("- handle post dynamic rule: {}, param: {}", ruleId, param);
+
+        RuleResult result = dynamicService.handle(ruleId, param);
+
+        log.debug("- dynamic post controller result: {}", result);
+        return result;
+    }
+
+    /**
+     * 动态接口 GET
+     *
+     * @param ruleId    ruleId
+     * @param param param
+     * @return      result
+     */
+    @GetMapping("{ruleId}")
+    public RuleResult handleGet(@PathVariable Long ruleId, @RequestParam Map<String, Object> param) {
+
+        log.debug("- handle get dynamic rule: {}, param: {}", ruleId, param);
+
+        RuleResult result = dynamicService.handle(ruleId, param);
+
+        log.debug("- dynamic get controller result: {}", result);
+        return result;
+    }
 
 
     /**
