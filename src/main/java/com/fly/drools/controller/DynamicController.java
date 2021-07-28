@@ -21,6 +21,13 @@ public class DynamicController {
 
     private final DynamicService dynamicService;
 
+    /**
+     * 动态接口
+     *
+     * @param ruleId    ruleId
+     * @param param param
+     * @return      result
+     */
     @PostMapping("{ruleId}")
     public RuleResult handle(@PathVariable Long ruleId, @RequestBody Map<String, Object> param) {
 

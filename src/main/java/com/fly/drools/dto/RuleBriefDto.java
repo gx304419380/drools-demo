@@ -19,4 +19,8 @@ public class RuleBriefDto {
     private String description;
 
     private LocalDateTime createTime;
+
+    public String getUrl() {
+        return "/dynamic/" + id;
+    }
 }
