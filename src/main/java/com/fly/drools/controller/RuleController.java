@@ -1,6 +1,7 @@
 package com.fly.drools.controller;
 
 import com.fly.drools.dto.RuleBriefDto;
+import com.fly.drools.dto.RuleDetailDto;
 import com.fly.drools.entity.Rule;
 import com.fly.drools.entity.RuleResult;
 import com.fly.drools.service.RuleService;
@@ -120,7 +121,7 @@ public class RuleController {
     @GetMapping("{id}")
     public RuleResult getById(@PathVariable Long id) {
         Rule rule = ruleService.getById(id);
-        return RuleResult.success(rule);
+        return RuleResult.success(RuleDetailDto.convertFrom(rule));
     }
 
 }
