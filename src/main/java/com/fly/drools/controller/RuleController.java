@@ -44,7 +44,7 @@ public class RuleController {
      * @param param param
      * @return      result
      */
-    @PostMapping("{ruleId}")
+    @PostMapping("/dynamic/{ruleId}")
     public RuleResult handlePost(@PathVariable Long ruleId, @RequestBody Map<String, Object> param) {
 
         log.debug("- handle post dynamic rule: {}, param: {}", ruleId, param);
@@ -62,7 +62,7 @@ public class RuleController {
      * @param param param
      * @return      result
      */
-    @GetMapping("{ruleId}")
+    @GetMapping("/dynamic/{ruleId}")
     public RuleResult handleGet(@PathVariable Long ruleId, @RequestParam Map<String, Object> param) {
 
         log.debug("- handle get dynamic rule: {}, param: {}", ruleId, param);
