@@ -12,10 +12,14 @@ import org.kie.api.builder.Results;
 import org.kie.api.io.ResourceType;
 import org.kie.internal.utils.KieHelper;
 import org.springframework.data.domain.Page;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.fly.drools.common.RuleErrorMessage.RULE_SYNTAX_ERROR;
+import static com.fly.drools.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
 
 /**
  * 规则controller
@@ -40,10 +44,11 @@ public class RuleController {
     public RuleResult saveRule(@RequestBody Rule rule) {
         log.info("save rule: {}", rule);
 
+        checkRuleText(rule.getRuleText());
         ruleService.save(rule);
 
         log.info("save rule success id: {}", rule.getId());
-        return RuleResult.success();
+        return RuleResult.success(rule.getId());
     }
 
 
@@ -73,6 +78,8 @@ public class RuleController {
      * @param ruleText 规则文本
      */
     private void checkRuleText(String ruleText) {
+        Assert.hasText(ruleText, RULE_TEXT_NULL_ERROR);
+
         KieHelper helper = new KieHelper();
         Results results = helper.addContent(ruleText, ResourceType.DRL).verify();
         List<Message> messages = results.getMessages();
@@ -81,7 +88,9 @@ public class RuleController {
         }
 
         log.error("verify result: {}", results);
-        String error = messages.stream().map(Message::getText).collect(Collectors.joining("\n"));
+        String error = RULE_SYNTAX_ERROR + "\n" +
+                messages.stream().map(Message::getText).collect(Collectors.joining("\n"));
+
         throw new IllegalArgumentException(error);
     }
 
