@@ -4,7 +4,6 @@ import com.fly.drools.entity.RuleResult
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationContext
-import com.fly.drools.test.TestService
 import java.util.Map
 import java.time.LocalDateTime
 import org.springframework.jdbc.core.JdbcTemplate
@@ -31,10 +30,7 @@ rule "discount_rule_4"
         log.info("drools execute, map={}", p);
         log.info("drools execute, param={}", param);
 
-        TestService t = context.getBean(TestService.class);
-        String res = t.test("123456");
         r.setData("hello world: " + param.getName());
-        log.info("test spring context: {}", res);
         List<Rule> list = jdbc.query("select * from tb_rule", new BeanPropertyRowMapper<>(Rule.class));
         log.info("rule list = {}", list);
 end
