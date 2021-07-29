@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * @author guoxiang
  */
 @Data
-@Table("tb_rule")
+@Table("TB_RULE")
 public class Rule {
 
     @Id
