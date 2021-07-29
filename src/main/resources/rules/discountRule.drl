@@ -1,8 +1,8 @@
 package rules
 
-import com.fly.drools.test.TestParam
-import com.fly.drools.entity.RuleResult
-import com.fly.drools.test.TestService
+import com.fly.rule.test.TestParam
+import com.fly.rule.entity.RuleResult
+import com.fly.rule.test.TestService
 
 
 rule "discount_rule_1"
