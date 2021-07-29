@@ -1,6 +1,6 @@
-package com.fly.drools.common;
+package com.fly.rule.common;
 
-import com.fly.drools.entity.RuleResult;
+import com.fly.rule.entity.RuleResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

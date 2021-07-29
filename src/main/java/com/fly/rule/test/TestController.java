@@ -1,7 +1,7 @@
-package com.fly.drools.test;
+package com.fly.rule.test;
 
-import com.fly.drools.entity.RuleResult;
-import com.fly.drools.service.RuleService;
+import com.fly.rule.entity.RuleResult;
+import com.fly.rule.service.RuleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kie.api.KieServices;

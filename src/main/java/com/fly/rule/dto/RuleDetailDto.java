@@ -1,6 +1,6 @@
-package com.fly.drools.dto;
+package com.fly.rule.dto;
 
-import com.fly.drools.entity.Rule;
+import com.fly.rule.entity.Rule;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.beans.BeanUtils;

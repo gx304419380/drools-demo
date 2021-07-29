@@ -1,4 +1,4 @@
-package com.fly.drools.dto;
+package com.fly.rule.dto;
 
 import lombok.Data;
 

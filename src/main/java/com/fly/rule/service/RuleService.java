@@ -1,8 +1,8 @@
-package com.fly.drools.service;
+package com.fly.rule.service;
 
-import com.fly.drools.dao.RuleDao;
-import com.fly.drools.dto.RuleBriefDto;
-import com.fly.drools.entity.Rule;
+import com.fly.rule.dao.RuleDao;
+import com.fly.rule.dto.RuleBriefDto;
+import com.fly.rule.entity.Rule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kie.api.runtime.KieContainer;
@@ -28,9 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.fly.drools.common.RuleConstant.CREATE_TIME;
-import static com.fly.drools.common.RuleErrorMessage.RULE_NULL_ERROR;
-import static com.fly.drools.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
+import static com.fly.rule.common.RuleConstant.CREATE_TIME;
+import static com.fly.rule.common.RuleErrorMessage.RULE_NULL_ERROR;
+import static com.fly.rule.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
 import static org.kie.api.io.ResourceType.DRL;
 import static org.springframework.util.StringUtils.hasText;
 

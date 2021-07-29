@@ -1,4 +1,4 @@
-package com.fly.drools.test;
+package com.fly.rule.test;
 
 import lombok.Data;
 

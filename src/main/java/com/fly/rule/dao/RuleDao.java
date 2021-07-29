@@ -1,7 +1,7 @@
-package com.fly.drools.dao;
+package com.fly.rule.dao;
 
-import com.fly.drools.dto.RuleBriefDto;
-import com.fly.drools.entity.Rule;
+import com.fly.rule.dto.RuleBriefDto;
+import com.fly.rule.entity.Rule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

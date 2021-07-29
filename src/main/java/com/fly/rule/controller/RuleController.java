@@ -1,11 +1,11 @@
-package com.fly.drools.controller;
+package com.fly.rule.controller;
 
-import com.fly.drools.dto.RuleBriefDto;
-import com.fly.drools.dto.RuleDetailDto;
-import com.fly.drools.entity.Rule;
-import com.fly.drools.entity.RuleResult;
-import com.fly.drools.service.DynamicService;
-import com.fly.drools.service.RuleService;
+import com.fly.rule.dto.RuleBriefDto;
+import com.fly.rule.dto.RuleDetailDto;
+import com.fly.rule.entity.Rule;
+import com.fly.rule.entity.RuleResult;
+import com.fly.rule.service.DynamicService;
+import com.fly.rule.service.RuleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kie.api.builder.Message;
@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.fly.drools.common.RuleErrorMessage.RULE_SYNTAX_ERROR;
-import static com.fly.drools.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
+import static com.fly.rule.common.RuleErrorMessage.RULE_SYNTAX_ERROR;
+import static com.fly.rule.common.RuleErrorMessage.RULE_TEXT_NULL_ERROR;
 
 /**
  * 规则controller
@@ -84,6 +84,7 @@ public class RuleController {
         log.info("save rule: {}", rule);
 
         checkRuleText(rule.getRuleText());
+        Assert.hasText(rule.getName(), "Name is Blank");
         ruleService.save(rule);
 
         log.info("save rule success id: {}", rule.getId());

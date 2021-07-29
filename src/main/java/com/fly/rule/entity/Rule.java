@@ -1,4 +1,4 @@
-package com.fly.drools.entity;
+package com.fly.rule.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
